@@ -18,7 +18,7 @@ const App=()=> {
   useEffect(() => {
     // Try to fetch token or protected endpoint using cookie
     axios
-      .get("http://chessbackend-production.up.railway.app/token", {
+      .get("https://chessbackend-production.up.railway.app/token", {
         withCredentials: true, // IMPORTANT for cookie to be sent
       })
       .then((res) => {
