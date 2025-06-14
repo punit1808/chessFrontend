@@ -76,12 +76,12 @@ const Board = ({ gameStarted , gameId, userId, socket}) => {
 
     const fetchBoard = async () => {
       try {
-        const response = await axios.get(`http://chessbackend-production.up.railway.app/api/game/board/${gameId}`,
+        const response = await axios.get(`https://chessbackend-production.up.railway.app/api/game/board/${gameId}`,
   { withCredentials: true});
         setBoard(response.data.board);
         prevBoardRef.current = response.data.board;
         setIsSet(true);
-        const responseTurn = await axios.get(`http://chessbackend-production.up.railway.app/api/game/turn/${gameId}`,
+        const responseTurn = await axios.get(`https://chessbackend-production.up.railway.app/api/game/turn/${gameId}`,
   { withCredentials: true});
         setTurn(responseTurn.data);
       } catch (error) {
@@ -117,7 +117,7 @@ const Board = ({ gameStarted , gameId, userId, socket}) => {
         await new Promise(resolve => setTimeout(resolve, 100));
         console.log("After socket opening in event to sendback message fetching board");
         try{
-        axios.get(`http://chessbackend-production.up.railway.app/api/game/rerender/${gameId}`,
+        axios.get(`https://chessbackend-production.up.railway.app/api/game/rerender/${gameId}`,
   { withCredentials: true}).then(response => {
               setBoard(response.data.board.board);
               prevBoardRef.current = response.data.board.board;
@@ -166,7 +166,7 @@ const Board = ({ gameStarted , gameId, userId, socket}) => {
     try {
       // POST move to backend
       const response1 = await axios.get(
-        `http://chessbackend-production.up.railway.app/api/game/move/${fromRow}/${fromCol}/${targetRow}/${targetCol}/${gameId}/${userId}`, { withCredentials: true}
+        `https://chessbackend-production.up.railway.app/api/game/move/${fromRow}/${fromCol}/${targetRow}/${targetCol}/${gameId}/${userId}`, { withCredentials: true}
       );
 
       setValid(response1.data.isValid);
