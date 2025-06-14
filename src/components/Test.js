@@ -7,7 +7,7 @@ const Test = () => {
 
   const handleClick = () => {
     axios
-      .get("http://chessbackend-production.up.railway.app/api/hello", {
+      .get("https://chessbackend-production.up.railway.app/api/hello", {
         withCredentials: true, // ✅ Sends the session cookie
       })
       .then((res) => {
