@@ -7,7 +7,7 @@ const LogoutButton = () => {
 
   const handleLogout = async () => {
     try {
-      await axios.post("http://chessbackend-production.up.railway.app/logout", {}, {
+      await axios.post("https://chessbackend-production.up.railway.app/logout", {}, {
         withCredentials: true
       });
 
