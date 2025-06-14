@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css'; 
+// import 'bootstrap/dist/css/bootstrap.min.css'; 
 import './App.css';
 import { Router, Routes, Route, Link, useNavigate  } from 'react-router-dom';
 import StartGame from './Component/StartGame';
