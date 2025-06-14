@@ -19,7 +19,7 @@ const StartGame = () => {
       // .then(data => console.log(data));
 
 
-      const response = await axios.get("http://chessbackend-production.up.railway.app/api/game/create",
+      const response = await axios.get("https://chessbackend-production.up.railway.app/api/game/create",
   { withCredentials: true}
 );
 
