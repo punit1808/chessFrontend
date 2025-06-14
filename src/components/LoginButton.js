@@ -2,7 +2,7 @@
 import React from "react";
 
 const LoginButton = () => {
-  const backendUrl = "http://chessbackend-production.up.railway.app/oauth2/authorization/google"; // Adjust port
+  const backendUrl = "https://chessbackend-production.up.railway.app/oauth2/authorization/google"; // Adjust port
 
   return (
     <a href={backendUrl}>
