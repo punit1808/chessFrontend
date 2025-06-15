@@ -39,7 +39,7 @@ const StartGame = () => {
     }
 
     try {
-      const ws = new WebSocket(`ws://chessbackend-production.up.railway.app/ws/game/${gameId}/${user1}/${user1}`);
+      const ws = new WebSocket(`wss://chessbackend-production.up.railway.app/wss/game/${gameId}/${user1}/${user1}`);
       setSocket(ws);
     
       ws.onopen = () => {
