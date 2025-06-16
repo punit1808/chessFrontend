@@ -28,8 +28,13 @@ const App=()=> {
         navigate("/Start");
       })
       .catch((err) => {
-        console.log("Not authenticated");
-        setAuthenticated(false);
+        // console.log("Not authenticated");
+        // setAuthenticated(false);
+
+        if (err.response?.status === 401) {
+        // 🔁 manually redirect to login
+        window.location.href = "https://chessbackend-production.up.railway.app/oauth2/authorization/google";
+  }
       });
   }, [onLogin]);
 
