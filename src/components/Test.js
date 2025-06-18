@@ -14,11 +14,7 @@ const Test = () => {
         setMsg(res.data); // ✅ axios parses JSON/text automatically
       })
       .catch((err) => {
-        // console.error("Error:", err);
-        if (err.response?.status === 401) {
-        // 🔁 manually redirect to login
-        window.location.href = "https://chessbackend-production.up.railway.app/oauth2/authorization/google";
-  }
+        console.error("Error:", err);
       });
   };
 
