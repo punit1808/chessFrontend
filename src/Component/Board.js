@@ -76,13 +76,11 @@ const Board = ({ gameStarted , gameId, userId, socket}) => {
 
     const fetchBoard = async () => {
       try {
-        const response = await axios.get(`https://chessbackend-production.up.railway.app/api/game/board/${gameId}`,
-  { withCredentials: true});
+        const response = await axios.get(`https://chessbackend-production.up.railway.app/api/game/board/${gameId}`);
         setBoard(response.data.board);
         prevBoardRef.current = response.data.board;
         setIsSet(true);
-        const responseTurn = await axios.get(`https://chessbackend-production.up.railway.app/api/game/turn/${gameId}`,
-  { withCredentials: true});
+        const responseTurn = await axios.get(`https://chessbackend-production.up.railway.app/api/game/turn/${gameId}`);
         setTurn(responseTurn.data);
       } catch (error) {
         console.error("Error fetching board:", error);
@@ -117,8 +115,7 @@ const Board = ({ gameStarted , gameId, userId, socket}) => {
         await new Promise(resolve => setTimeout(resolve, 100));
         console.log("After socket opening in event to sendback message fetching board");
         try{
-        axios.get(`https://chessbackend-production.up.railway.app/api/game/rerender/${gameId}`,
-  { withCredentials: true}).then(response => {
+        axios.get(`https://chessbackend-production.up.railway.app/api/game/rerender/${gameId}`).then(response => {
               setBoard(response.data.board.board);
               prevBoardRef.current = response.data.board.board;
               setIsSet(true);
@@ -166,7 +163,7 @@ const Board = ({ gameStarted , gameId, userId, socket}) => {
     try {
       // POST move to backend
       const response1 = await axios.get(
-        `https://chessbackend-production.up.railway.app/api/game/move/${fromRow}/${fromCol}/${targetRow}/${targetCol}/${gameId}/${userId}`, { withCredentials: true}
+        `https://chessbackend-production.up.railway.app/api/game/move/${fromRow}/${fromCol}/${targetRow}/${targetCol}/${gameId}/${userId}`
       );
 
       setValid(response1.data.isValid);

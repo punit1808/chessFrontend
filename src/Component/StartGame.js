@@ -19,9 +19,7 @@ const StartGame = () => {
       // .then(data => console.log(data));
 
 
-      const response = await axios.get("https://chessbackend-production.up.railway.app/api/game/create",
-  { withCredentials: true}
-);
+      const response = await axios.get("https://chessbackend-production.up.railway.app/api/game/create");
 
       const generatedId = response.data.gameId || response.data;  // adjust based on backend response
       setGameId(generatedId);
