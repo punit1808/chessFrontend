@@ -22,7 +22,7 @@ const App=()=> {
           {/* <Link style={{textDecoration: 'none', color: 'red', fontWeight: 'bold',fontSize: 'large'}} to="/logout">Logout</Link>  */}
         </div>
         <Routes>
-          <Route path="/" element={<>Chess Master</>} />
+          <Route path="/" element={<h1>Chess Master</h1>} />
           <Route path="/Home" element={<>
           <h1>Home Page</h1>
           {/* <Test/> */}
