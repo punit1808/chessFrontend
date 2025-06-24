@@ -9,6 +9,7 @@ const StartGame = () => {
   const [gameId, setGameId] = useState("");
   const [gameStarted, setGameStarted] = useState(false);
   const[socket,setSocket] = useState();
+  const backendUrl = window._env_?.BACKEND_URL;
   const createGameId = async () => {
     try {
       // fetch("http://localhost:8080/api/user/me", {
@@ -19,7 +20,7 @@ const StartGame = () => {
       // .then(data => console.log(data));
 
 
-      const response = await axios.get("https://chessbackend-production.up.railway.app/api/game/create");
+      const response = await axios.get(`https://${BACKEND_URL}/api/game/create`);
 
       const generatedId = response.data.gameId || response.data;  // adjust based on backend response
       setGameId(generatedId);
@@ -37,7 +38,7 @@ const StartGame = () => {
     }
 
     try {
-      const ws = new WebSocket(`wss://chessbackend-production.up.railway.app/wss/game/${gameId}/${user1}/${user1}`);
+      const ws = new WebSocket(`wss://${BACKEND_URL}/wss/game/${gameId}/${user1}/${user1}`);
       setSocket(ws);
     
       ws.onopen = () => {
