@@ -3,7 +3,6 @@ import { Button } from "react-bootstrap";
 import { ToastContainer, toast } from 'react-toastify';
 import axios from "axios";
 import Board from "./Board"; 
-const backendUrl = window.env.REACT_APP_BACKEND_URL;
 
 const StartGame = () => {
   const [user1, setUser1] = useState("");
@@ -21,7 +20,7 @@ const StartGame = () => {
 
 
     
-      const response = await axios.get(`https://${backendUrl}/api/game/create`);
+      const response = await axios.get(`https://chessbackend-utrs.onrender.com/api/game/create`);
 
       const generatedId = response.data.gameId || response.data;  // adjust based on backend response
       setGameId(generatedId);
@@ -39,7 +38,7 @@ const StartGame = () => {
     }
 
     try {
-      const ws = new WebSocket(`wss://${backendUrl}/wss/game/${gameId}/${user1}/${user1}`);
+      const ws = new WebSocket(`wss://chessbackend-utrs.onrender.com/wss/game/${gameId}/${user1}/${user1}`);
       setSocket(ws);
     
       ws.onopen = () => {
