@@ -20,6 +20,7 @@ const StartGame = () => {
       // .then(data => console.log(data));
 
 
+    
       const response = await axios.get(`https://${BACKEND_URL}/api/game/create`);
 
       const generatedId = response.data.gameId || response.data;  // adjust based on backend response
