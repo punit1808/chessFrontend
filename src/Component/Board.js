@@ -14,7 +14,7 @@ import blackrook from "../Images/blackrook.svg";
 import whiteking from "../Images/whiteking.svg";
 import blackking from "../Images/blackking.svg";
 import './comp.css';
-const backendUrl = window.env.BACKEND_URL;
+const backendUrl = window.env.REACT_APP_BACKEND_URL;
 
 
 

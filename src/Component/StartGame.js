@@ -3,7 +3,7 @@ import { Button } from "react-bootstrap";
 import { ToastContainer, toast } from 'react-toastify';
 import axios from "axios";
 import Board from "./Board"; 
-const backendUrl = window.env.BACKEND_URL;
+const backendUrl = window.env.REACT_APP_BACKEND_URL;
 
 const StartGame = () => {
   const [user1, setUser1] = useState("");
