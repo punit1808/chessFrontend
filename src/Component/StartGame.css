@@ -1,0 +1,66 @@
+.startgame-body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f4f4f4;
+  min-height: 100vh;
+}
+
+.startgame-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 50px;
+}
+
+.startgame-card {
+  background: #fff;
+  padding: 30px 40px;
+  border-radius: 8px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  width: 320px;
+  text-align: center;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.startgame-card h2 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.startgame-card label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 15px;
+  color: #333;
+  text-align: left;
+}
+
+.startgame-card input {
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.green-btn {
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+  background-color: #4caf50;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.green-btn:hover {
+  background-color: #45a049;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

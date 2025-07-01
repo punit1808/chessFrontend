@@ -6,6 +6,7 @@ import StartGame from './Component/StartGame';
 import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm';
 import axios from 'axios';
+import StartPage from './components/StartPage';
 
 const App=()=> {
 
@@ -13,18 +14,16 @@ const App=()=> {
   return (
       
       <div className="App" >
-        <div className='Navbar'>
+        {/* <div className='Navbar'>
           <Link style={{textDecoration: 'none', color: 'green', fontWeight: 'bold',fontSize: 'large'}} to="/Home">Home</Link> 
           <Link style={{textDecoration: 'none', color: 'green', fontWeight: 'bold',fontSize: 'large'}} to="/">Game</Link> 
           <Link style={{textDecoration: 'none', color: 'green', fontWeight: 'bold',fontSize: 'large'}} to="/Start">Start</Link> 
           <Link style={{textDecoration: 'none', color: 'green', fontWeight: 'bold',fontSize: 'large'}} to="/login">Login/Signup</Link> 
-        </div>
+        </div> */}
         <Routes>
-          <Route path="/" element={<h1>Chess Master</h1>} />
+          <Route path="/" element={<StartPage/>} />
           <Route path="/Home" element={<>
           <h1>Home Page</h1>
-          {/* <Test/> */}
-          {/* <LogoutButton/> */}
           </>} />
           <Route path="/Start" element={<StartGame/>} />
           <Route path="/login" element={<LoginForm/>} />

@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Link, Navigate } from 'react-router-dom';
-import './styles.css';
+import { Link, useNavigate } from 'react-router-dom';
+import './LoginForm.css'; // separate CSS
 
-const LoginForm = () => {
+const LoginForm = ({ onClose, onSwitchToRegister }) => {
   const [formData, setFormData] = useState({ email: '', password: '' });
+  const navigate = useNavigate();
 
   const handleChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -18,18 +19,18 @@ const LoginForm = () => {
     try {
       const response = await fetch('https://chessbackend-utrs.onrender.com/api/v1/auth/login', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(loginData)
       });
 
       if (response.ok) {
         const data = await response.json();
-        localStorage.setItem('token', data.token); // Store token in localStorage
-        console.log('Login successful:');
-        Navigate('/Start'); // Redirect to home page after successful login
-      } else {
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('username', data.user.fullName);
+        console.log('Login successful');
+        navigate('/start'); 
+      } 
+      else {
         console.error('Login failed:', await response.text());
       }
     } catch (error) {
@@ -37,18 +38,26 @@ const LoginForm = () => {
     }
   };
 
-
   return (
-    <div className="form-container">
-      <h2>Login</h2>
-      <div>
+    <div className="login-modal">
+      <div className="login-box">
+        <h2>Login</h2>
         <input name="email" type="email" placeholder="Email" value={formData.email} onChange={handleChange} required />
         <input name="password" type="password" placeholder="Password" value={formData.password} onChange={handleChange} required />
         <button onClick={handleSubmit}>Login</button>
+        <p>
+          Don't have an account?{' '}
+          <span
+            style={{ color: '#007bff', cursor: 'pointer' }}
+            onClick={onSwitchToRegister}
+          >
+            Register here
+          </span>
+        </p>
       </div>
-      <p>
-        Don't have an account? <Link to="/register">Register here</Link>
-      </p>
+      <div className='close-box'>
+        <button className="close-btn" onClick={onClose}>✖</button>
+      </div>
     </div>
   );
 };

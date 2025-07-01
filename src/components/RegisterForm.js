@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, useNavigate , Navigate} from 'react-router-dom';
 import './styles.css';
 
-const RegisterForm = () => {
+const RegisterForm = ({onClose,onSwitchToRegister}) => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({ name: '', email: '', password: '' });
 
   const handleChange = e => {
@@ -26,11 +27,11 @@ const RegisterForm = () => {
       });
 
       if (response.ok) {
-        const data = await response.json();
         console.log('User Registerd');
-        Navigate('/Login');
+        navigate('/login');
 
-      } else {
+      } 
+      else {
         console.error('Register failed:', await response.text());
       }
     } catch (error) {
@@ -38,8 +39,13 @@ const RegisterForm = () => {
     }
   };
 
+  const handleClose = () => {
+    onClose();
+  }
+
   return (
-      <div className="form-container">
+    <div className='register-container'>
+      <div className="register-box">
         <h2>Register</h2>
         <div>
           <input name="name" type="text" placeholder="Name" value={formData.name} onChange={handleChange} required />
@@ -48,9 +54,19 @@ const RegisterForm = () => {
           <button onClick={handleSubmit}>Register</button>
         </div>
         <p>
-          Already have an account? <Link to="/login">Login here</Link>
+          Already have an account?{' '}
+          <span
+            style={{ color: '#007bff', cursor: 'pointer' }}
+            onClick={onSwitchToRegister}
+          >
+            Login here
+          </span>
         </p>
       </div>
+      <div className='close-box'>
+        <button className="close-btn" onClick={handleClose}>✖</button>
+      </div>
+    </div>
     );
 };
 
