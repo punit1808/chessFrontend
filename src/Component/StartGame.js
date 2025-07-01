@@ -10,7 +10,7 @@ const StartGame = () => {
   const [gameStarted, setGameStarted] = useState(false);
   const[socket,setSocket] = useState();
   const token = localStorage.getItem('token');
-  
+
   const createGameId = async () => {
     try {
       // fetch("http://localhost:8080/api/user/me", {
@@ -45,12 +45,7 @@ const StartGame = () => {
     }
 
     try {
-      const ws = new WebSocket(`wss://chessbackend-utrs.onrender.com/wss/game/${gameId}/${user1}/${user1}`,{
-        headers: {
-          'Authorization': `Bearer ${token}`, 
-          'Content-Type': 'application/json'
-        }
-      });
+      const ws = new WebSocket(`wss://chessbackend-utrs.onrender.com/wss/game/${gameId}/${user1}/${user1}`);
       setSocket(ws);
     
       ws.onopen = () => {
