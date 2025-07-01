@@ -39,7 +39,7 @@ const StartPage = () => {
         <LoginForm
           onClose={() => setShowLogin(false)}
           onSwitchToRegister={() => {
-            setShowLogin(false);
+            setShowLogin(false);    
             setShowRegister(true);
           }}
         />

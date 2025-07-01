@@ -28,7 +28,7 @@ const RegisterForm = ({onClose,onSwitchToRegister}) => {
 
       if (response.ok) {
         console.log('User Registerd');
-        navigate('/login');
+        onSwitchToRegister();
 
       } 
       else {
