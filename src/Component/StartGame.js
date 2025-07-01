@@ -9,6 +9,8 @@ const StartGame = () => {
   const [gameId, setGameId] = useState("");
   const [gameStarted, setGameStarted] = useState(false);
   const[socket,setSocket] = useState();
+  const token = localStorage.getItem('token');
+  
   const createGameId = async () => {
     try {
       // fetch("http://localhost:8080/api/user/me", {
@@ -20,7 +22,12 @@ const StartGame = () => {
 
 
     
-      const response = await axios.get(`https://chessbackend-utrs.onrender.com/api/game/create`);
+      const response = await axios.get(`https://chessbackend-utrs.onrender.com/api/game/create`,{
+        headers: {
+          'Authorization': `Bearer ${token}`, 
+          'Content-Type': 'application/json'
+        }
+      });
 
       const generatedId = response.data.gameId || response.data;  // adjust based on backend response
       setGameId(generatedId);
@@ -38,7 +45,12 @@ const StartGame = () => {
     }
 
     try {
-      const ws = new WebSocket(`wss://chessbackend-utrs.onrender.com/wss/game/${gameId}/${user1}/${user1}`);
+      const ws = new WebSocket(`wss://chessbackend-utrs.onrender.com/wss/game/${gameId}/${user1}/${user1}`,{
+        headers: {
+          'Authorization': `Bearer ${token}`, 
+          'Content-Type': 'application/json'
+        }
+      });
       setSocket(ws);
     
       ws.onopen = () => {

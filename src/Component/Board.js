@@ -42,6 +42,7 @@ const Board = ({ gameStarted , gameId, userId, socket}) => {
   const [flag,SetFlag] = useState(false);
   const[check,setCheck] = useState();
   const [ck,setCk] = useState(true);
+  const token = localStorage.getItem('token');
   
 
 
@@ -75,11 +76,21 @@ const Board = ({ gameStarted , gameId, userId, socket}) => {
 
     const fetchBoard = async () => {
       try {
-        const response = await axios.get(`https://chessbackend-utrs.onrender.com/api/game/board/${gameId}`);
+        const response = await axios.get(`https://chessbackend-utrs.onrender.com/api/game/board/${gameId}`,{
+        headers: {
+          'Authorization': `Bearer ${token}`, 
+          'Content-Type': 'application/json'
+        }
+      });
         setBoard(response.data.board);
         prevBoardRef.current = response.data.board;
         setIsSet(true);
-        const responseTurn = await axios.get(`https://chessbackend-utrs.onrender.com/api/game/turn/${gameId}`);
+        const responseTurn = await axios.get(`https://chessbackend-utrs.onrender.com/api/game/turn/${gameId}`,{
+        headers: {
+          'Authorization': `Bearer ${token}`, 
+          'Content-Type': 'application/json'
+        }
+      });
         setTurn(responseTurn.data);
       } catch (error) {
         console.error("Error fetching board:", error);
@@ -114,7 +125,12 @@ const Board = ({ gameStarted , gameId, userId, socket}) => {
         await new Promise(resolve => setTimeout(resolve, 100));
         console.log("After socket opening in event to sendback message fetching board");
         try{
-        axios.get(`https://chessbackend-utrs.onrender.com/api/game/rerender/${gameId}`).then(response => {
+        axios.get(`https://chessbackend-utrs.onrender.com/api/game/rerender/${gameId}`,{
+        headers: {
+          'Authorization': `Bearer ${token}`, 
+          'Content-Type': 'application/json'
+        }
+      }).then(response => {
               setBoard(response.data.board.board);
               prevBoardRef.current = response.data.board.board;
               setIsSet(true);
@@ -162,7 +178,12 @@ const Board = ({ gameStarted , gameId, userId, socket}) => {
     try {
       // POST move to backend
       const response1 = await axios.get(
-        `https://chessbackend-utrs.onrender.com/api/game/move/${fromRow}/${fromCol}/${targetRow}/${targetCol}/${gameId}/${userId}`
+        `https://chessbackend-utrs.onrender.com/api/game/move/${fromRow}/${fromCol}/${targetRow}/${targetCol}/${gameId}/${userId}`,{
+        headers: {
+          'Authorization': `Bearer ${token}`, 
+          'Content-Type': 'application/json'
+        }
+      }
       );
 
       setValid(response1.data.isValid);

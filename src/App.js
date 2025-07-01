@@ -3,11 +3,9 @@ import React,{useState,useEffect} from 'react';
 import './App.css';
 import { Router, Routes, Route, Link, useNavigate  } from 'react-router-dom';
 import StartGame from './Component/StartGame';
-// import LoginButton from './components/LoginButton';
-// import LogoutButton from './components/LogoutButton';
-// import Test from './components/Test';
+import LoginForm from './components/LoginForm';
+import RegisterForm from './components/RegisterForm';
 import axios from 'axios';
-// import User from './Component/User';
 
 const App=()=> {
 
@@ -19,7 +17,7 @@ const App=()=> {
           <Link style={{textDecoration: 'none', color: 'green', fontWeight: 'bold',fontSize: 'large'}} to="/Home">Home</Link> 
           <Link style={{textDecoration: 'none', color: 'green', fontWeight: 'bold',fontSize: 'large'}} to="/">Game</Link> 
           <Link style={{textDecoration: 'none', color: 'green', fontWeight: 'bold',fontSize: 'large'}} to="/Start">Start</Link> 
-          {/* <Link style={{textDecoration: 'none', color: 'red', fontWeight: 'bold',fontSize: 'large'}} to="/logout">Logout</Link>  */}
+          <Link style={{textDecoration: 'none', color: 'green', fontWeight: 'bold',fontSize: 'large'}} to="/login">Login/Signup</Link> 
         </div>
         <Routes>
           <Route path="/" element={<h1>Chess Master</h1>} />
@@ -29,7 +27,8 @@ const App=()=> {
           {/* <LogoutButton/> */}
           </>} />
           <Route path="/Start" element={<StartGame/>} />
-          {/* <Route path="/logout" element={<LogoutButton/>} /> */}
+          <Route path="/login" element={<LoginForm/>} />
+          <Route path="/register" element={<RegisterForm/>} />
           
         </Routes>
       </div>
