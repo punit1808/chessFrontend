@@ -41,11 +41,11 @@ const LoginForm = () => {
   return (
     <div className="form-container">
       <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
+      <div>
         <input name="email" type="email" placeholder="Email" value={formData.email} onChange={handleChange} required />
         <input name="password" type="password" placeholder="Password" value={formData.password} onChange={handleChange} required />
         <button onClick={handleSubmit}>Login</button>
-      </form>
+      </div>
       <p>
         Don't have an account? <Link to="/register">Register here</Link>
       </p>
