@@ -29,7 +29,6 @@ const LoginForm = ({ onClose, onSwitchToRegister }) => {
         const res =await fetch('https://chessbackend-utrs.onrender.com/api/v1/auth/user/me', {
           method: 'GET',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(loginData)
         });
         if(res.ok){localStorage.setItem('username', data.fullName);}
         console.log('Login successful');
