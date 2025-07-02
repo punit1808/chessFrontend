@@ -1,16 +1,25 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import axios from "axios";
 import Board from "./Board"; 
 import Navbar from "../components/NavBar";
-import './StartGame.css'; // 🎯 Add this line to import styles
+import './StartGame.css'; 
+import { useNavigate } from "react-router-dom";
 
 const StartGame = () => {
+  const navigate = useNavigate();
   const [user1, setUser1] = useState("");
   const [gameId, setGameId] = useState("");
   const [gameStarted, setGameStarted] = useState(false);
   const [socket, setSocket] = useState();
   const token = localStorage.getItem('token');
+
+
+  useEffect(() => {
+    if(token==null || token == undefined || token === "undefined") {
+      navigate('/');
+    }
+  }, []);
 
   const createGameId = async () => {
     try {
