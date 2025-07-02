@@ -122,7 +122,7 @@ const Board = ({ gameStarted , gameId, userId, socket}) => {
       console.log("Inside");
 
       const handleDelay = async () => {
-        await new Promise(resolve => setTimeout(resolve, 100));
+        await new Promise(resolve => setTimeout(resolve, 10));
         console.log("After socket opening in event to sendback message fetching board");
         try{
         axios.get(`https://chessbackend-utrs.onrender.com/api/game/rerender/${gameId}`,{
@@ -207,13 +207,16 @@ const Board = ({ gameStarted , gameId, userId, socket}) => {
 
   return (
     <div>
-      {!ck ? (
+      {!ck && (
+        <div className="win-overlay">
           <div className="winBox">
-            <div style={{ fontSize: "2rem", fontWeight: "bold", color: "#28a745" }}>
-              {turn === "black" ? "WHITE WINS!" : "BLACK WINS!"}
-            </div>
+            <div>{turn === "black" ? "WHITE WINS!" : "BLACK WINS!"}</div>
+            <button className="replay-btn" onClick={() => window.location.href = '/start'}>
+              Replay
+            </button>
           </div>
-        ) : null}
+        </div>
+      )}
         {ck ? (
           <>
             <div style={{ textAlign: 'center', fontWeight: 'bolder', color: 'green' }}>

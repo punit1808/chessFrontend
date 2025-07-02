@@ -10,16 +10,14 @@ import StartPage from './components/StartPage';
 
 const App=()=> {
 
+  useEffect(() => {
+      localStorage.removeItem('gameId');
+    }, []);
+
 
   return (
       
       <div className="App" >
-        {/* <div className='Navbar'>
-          <Link style={{textDecoration: 'none', color: 'green', fontWeight: 'bold',fontSize: 'large'}} to="/Home">Home</Link> 
-          <Link style={{textDecoration: 'none', color: 'green', fontWeight: 'bold',fontSize: 'large'}} to="/">Game</Link> 
-          <Link style={{textDecoration: 'none', color: 'green', fontWeight: 'bold',fontSize: 'large'}} to="/Start">Start</Link> 
-          <Link style={{textDecoration: 'none', color: 'green', fontWeight: 'bold',fontSize: 'large'}} to="/login">Login/Signup</Link> 
-        </div> */}
         <Routes>
           <Route path="/" element={<StartPage/>} />
           <Route path="/Home" element={<>

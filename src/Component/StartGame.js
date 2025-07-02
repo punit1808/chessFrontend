@@ -13,6 +13,7 @@ const StartGame = () => {
   const [gameStarted, setGameStarted] = useState(false);
   const [socket, setSocket] = useState();
   const token = localStorage.getItem('token');
+  const [useExisting, setUseExisting] = useState(false);
 
 
   useEffect(() => {
@@ -43,6 +44,7 @@ const StartGame = () => {
       toast.error("Please enter username and create a game ID");
       return;
     }
+    localStorage.setItem('gameId', gameId);
 
     try {
       const ws = new WebSocket(`wss://chessbackend-utrs.onrender.com/wss/game/${gameId}/${user1}/${user1}`);
@@ -61,7 +63,7 @@ const StartGame = () => {
   return (
     <div className="startgame-body">
       <ToastContainer />
-      <Navbar/>
+      <Navbar gameStarted={gameStarted}/>
       <br/>
       {!gameStarted ? (
         <div className="startgame-container">
@@ -74,15 +76,28 @@ const StartGame = () => {
               value={user1}
               onChange={(e) => setUser1(e.target.value)}
             />
-            <button className="green-btn" onClick={createGameId}>
-              Create Game ID
-            </button>
-            <input
-              type="text"
-              placeholder="Game ID"
-              value={gameId}
-              onChange={(e) => setGameId(e.target.value)}
-            />
+            {useExisting ? (
+                <>
+                  <input
+                    type="text"
+                    placeholder="Enter existing Game ID"
+                    value={gameId}
+                    onChange={(e) => setGameId(e.target.value)}
+                  />
+                  <p className="toggle-text" onClick={() => setUseExisting(false)}>
+                    ← Go back to creating a new Game ID
+                  </p>
+                </>
+              ) : (
+                <>
+                  <button className="green-btn" onClick={createGameId}>
+                    Create Game ID
+                  </button>
+                  <p className="toggle-text" onClick={() => setUseExisting(true)}>
+                    Have an existing Game ID?
+                  </p>
+                </>
+              )}
             <button className="green-btn" onClick={startHandler}>
               Start Game
             </button>

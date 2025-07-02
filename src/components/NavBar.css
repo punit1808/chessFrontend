@@ -2,10 +2,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 20px;
+  padding: 8px 16px;
   background-color: #ffffff;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  /* position: sticky; */
   top: 0;
   z-index: 100;
 }
@@ -13,53 +12,187 @@
 .navbar-left,
 .navbar-center,
 .navbar-right {
-  flex: 1;
   display: flex;
   align-items: center;
-  justify-content: center;
 }
 
 .navbar-left {
+  flex: 1;
   justify-content: flex-start;
 }
 
+.navbar-center {
+  flex: 1;
+  justify-content: center;
+}
+
 .navbar-right {
+  flex: 1;
   justify-content: flex-end;
-  gap: 12px;
+  position: relative;
 }
 
 .navbar-title {
   font-size: 24px;
-  color: #333;
   font-weight: 600;
+  color: #333;
+  white-space: nowrap;
 }
 
 .navbar-user {
   font-size: 14px;
   font-weight: 600;
   color: #333;
+  margin-right: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 120px;
+}
+
+.navbar-btn,
+.navbar-btn-red {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  white-space: nowrap;
 }
 
 .navbar-btn {
-  padding: 6px 12px;
   background-color: #4caf50;
-  border: none;
-  border-radius: 4px;
-  color: white;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-.navbar-btn-red {
-  padding: 6px 12px;
-  background-color: rgb(209, 60, 60);
-  border: none;
-  border-radius: 4px;
-  color: white;
-  font-size: 14px;
-  cursor: pointer;
 }
 
 .navbar-btn:hover {
   background-color: #45a049;
+}
+
+.navbar-btn-red {
+  background-color: rgb(209, 60, 60);
+}
+
+.navbar-btn-red:hover {
+  background-color: rgb(180, 50, 50);
+}
+
+/* Desktop view */
+.navbar-desktop {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.navbar-mobile-menu {
+  display: none;
+}
+
+/* Responsive styles for mobile */
+@media (max-width: 600px) {
+  .navbar {
+    padding: 6px 10px;
+  }
+
+  .navbar-title {
+    font-size: 18px;
+  }
+
+  .navbar-user {
+    font-size: 12px;
+    max-width: 80px;
+  }
+
+  .navbar-btn,
+  .navbar-btn-red {
+    font-size: 12px;
+    padding: 5px 8px;
+  }
+
+  .navbar-desktop {
+    display: none;
+  }
+
+  .navbar-mobile-menu {
+    display: block;
+  }
+
+  .menu-icon {
+    font-size: 22px;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  .dropdown-menu {
+    position: absolute;
+    right: 0;
+    top: 36px;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 200;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 120px;
+  }
+
+  .dropdown-menu button {
+  padding: 6px 10px;
+  font-size: 13px;
+  cursor: pointer;
+  color: white;
+  border: none;
+  border-radius: 4px;
+}
+
+/* Specific colors for each action */
+.dropdown-menu .login-btn {
+  background-color: #4caf50;
+}
+
+.dropdown-menu .logout-btn {
+  background-color: rgb(209, 60, 60);
+}
+
+.dropdown-menu .login-btn:hover {
+  background-color: #45a049;
+}
+
+.dropdown-menu .logout-btn:hover {
+  background-color: rgb(180, 50, 50);
+}
+
+
+  .dropdown-user {
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 4px;
+    color: #333;
+  }
+}
+
+.navbar-gameid {
+  font-size: 12px;
+  font-weight: 500;
+  color: #444;
+  background-color: #eafbea;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  max-width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dropdown-gameid {
+  font-size: 12px;
+  color: #444;
+  background-color: #eafbea;
+  padding: 5px 8px;
+  border-radius: 4px;
+  font-weight: 500;
 }

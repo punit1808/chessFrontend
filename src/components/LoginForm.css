@@ -138,3 +138,9 @@
     padding: 2px 8px;
   }
 }
+
+.error-text {
+  color: red;
+  font-size: 12px;
+  margin: 4px 0 8px;
+}

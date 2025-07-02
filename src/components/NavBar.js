@@ -1,20 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './NavBar.css';
 import { useNavigate } from 'react-router-dom';
 
-const Navbar = () => {
+const Navbar = ({ gameStarted }) => {
   const navigate = useNavigate();
   const username = localStorage.getItem('username');
+  const [showMenu, setShowMenu] = useState(false);
+  const gameId = localStorage.getItem('gameId');
 
-    const onLoginClick = () => {
-        navigate('/');
-    };
 
-    const handleLogout = () => {
-        localStorage.removeItem('token');
-        localStorage.removeItem('username');
-        navigate('/');
-    }
+  const onLoginClick = () => {
+    navigate('/');
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
+    localStorage.removeItem('gameId');
+    navigate('/');
+  };
+
+  const toggleMenu = () => {
+    setShowMenu(!showMenu);
+  };
 
   return (
     <nav className="navbar">
@@ -25,17 +33,36 @@ const Navbar = () => {
       </div>
 
       <div className="navbar-right">
-        {username ? (
-          <>
-            <span className="navbar-user">👤 {username.toUpperCase()}</span>
+        <div className="navbar-desktop">
+          <span className="navbar-user">
+            👤 {username ? username.toUpperCase() : 'Guest'}
+          </span>
+          {gameStarted && gameId && (
+            <span className="navbar-gameid">🎯 Game ID: {gameId}</span>
+          )}
+          {username ? (
             <button className="navbar-btn-red" onClick={handleLogout}>Logout</button>
-          </>
-        ) : (
-          <>
-            <span className="navbar-user">🕹️ Guest</span>
+          ) : (
             <button className="navbar-btn" onClick={onLoginClick}>Login</button>
-          </>
-        )}
+          )}
+        </div>
+
+        <div className="navbar-mobile-menu">
+          <button className="menu-icon" onClick={toggleMenu}>☰</button>
+          {showMenu && (
+            <div className="dropdown-menu">
+              <div className="dropdown-user">👤 {username ? username.toUpperCase() : 'Guest'}</div>
+              {gameStarted && gameId && (
+                <div className="dropdown-gameid">🎯 Game ID: {gameId}</div>
+              )}
+              {username ? (
+                <button className="logout-btn" onClick={handleLogout}>Logout</button>
+              ) : (
+                <button className="login-btn" onClick={onLoginClick}>Login</button>
+              )}
+            </div>
+          )}
+        </div>
       </div>
     </nav>
   );
