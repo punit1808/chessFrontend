@@ -27,8 +27,8 @@ const Navbar = () => {
       <div className="navbar-right">
         {username ? (
           <>
-            <span className="navbar-user">👤 {username}</span>
-            <button className="navbar-btn" onClick={handleLogout}>Logout</button>
+            <span className="navbar-user">👤 {username.toUpperCase()}</span>
+            <button className="navbar-btn-red" onClick={handleLogout}>Logout</button>
           </>
         ) : (
           <>
