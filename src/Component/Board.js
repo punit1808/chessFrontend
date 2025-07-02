@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";  
 import whitepawn from "../Images/whitepawn.svg";
 import blackpawn from "../Images/blackpawn.svg";
@@ -44,6 +45,7 @@ const Board = ({ gameStarted , gameId, userId, socket}) => {
   const [ck,setCk] = useState(true);
   const [winner,setWinner] = useState("");
   const token = localStorage.getItem('token');
+  const navigate = useNavigate();
   
 
 
@@ -83,6 +85,11 @@ const Board = ({ gameStarted , gameId, userId, socket}) => {
           'Content-Type': 'application/json'
         }
       });
+        if (!response.data || !response.data.board || board.length === 0) {
+          toast.error("Invalid gameId");
+          navigate('/start');
+          return;
+        }
         setBoard(response.data.board);
         prevBoardRef.current = response.data.board;
         setIsSet(true);
