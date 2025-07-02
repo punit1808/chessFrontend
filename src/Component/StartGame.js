@@ -39,6 +39,11 @@ const StartGame = () => {
     }
   };
 
+  const handleCloseBoard = () => {
+    setGameStarted(false);
+    setSocket(null);
+  }
+
   const startHandler = async () => {
     if (!user1 || !gameId) {
       toast.error("Please enter username and create a game ID");
@@ -104,7 +109,7 @@ const StartGame = () => {
           </div>
         </div>
       ) : (
-        <Board gameStarted={gameStarted} gameId={gameId} userId={user1} socket={socket} />
+        <Board gameStarted={gameStarted} gameId={gameId} userId={user1} socket={socket} onClose={handleCloseBoard} />
       )}
     </div>
   );
