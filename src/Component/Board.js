@@ -35,7 +35,7 @@ const pieceImages = {
   
 };
 
-const Board = ({ gameStarted , gameId, userId, socket}) => {
+const Board = ({ gameStarted , gameId, userId, socket, handleCloseBoard}) => {
   const [board, setBoard] = useState([]);
   const [isSet, setIsSet] = useState(false);
   const [turn, setTurn] = useState("white");
