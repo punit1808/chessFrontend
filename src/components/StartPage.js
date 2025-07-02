@@ -10,7 +10,7 @@ const StartPage = () => {
   const navigate = useNavigate();
 
   const handleGuestPlay = () => {
-    localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwdW5pdHlhZGF2MTgwOEBnbWFpbC5jb20iLCJpYXQiOjE3NTEzNjQzMTQsImV4cCI6MTc1MTQ1MDcxNH0.tDSeVdwLp6dxoofE5Y7wS35B3HsYPrejRdlUH2qn_9I');
+    localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJndWVzdEBnbWFpbC5jb20iLCJpYXQiOjE3NTE0NDAwNDAsImV4cCI6MTc1MTUyNjQ0MH0.gPN4YojWIQf4FYd0TzMcJ8kTwvh20ofDIbTK_MgLtAQ');
     navigate('/start'); 
   };
 
