@@ -99,22 +99,14 @@ const Board = ({ gameStarted , gameId, userId, socket}) => {
     };
 
     fetchBoard();
-
-    // Poll every 1 second for updates from backend (optional)
-    // const intervalId = setInterval(fetchBoard, 100);
-
-    // return () => clearInterval(intervalId);
   }, [flag]);
 
  useEffect(() => {
-  console.log("Before socket opening in event to sendback message");
 
   if (!socket) {
     toast.error("Socket Disconnected");
     return;
   }
-
-  console.log("After socket opening in event to sendback message");
 
   socket.onmessage = (event) => {
     // Expect "true" or "false" string
@@ -123,7 +115,7 @@ const Board = ({ gameStarted , gameId, userId, socket}) => {
 
       const handleDelay = async () => {
         await new Promise(resolve => setTimeout(resolve, 10));
-        console.log("After socket opening in event to sendback message fetching board");
+
         try{
         axios.get(`https://chessbackend-utrs.onrender.com/api/game/rerender/${gameId}`,{
         headers: {
@@ -190,10 +182,9 @@ const Board = ({ gameStarted , gameId, userId, socket}) => {
       setCheck(response1.data.isSafe);
       setCk(!response1.data.isWin.res);
       SetFlag(!flag);
-       console.log("Before sending message");
+
     if (socket && socket.readyState === WebSocket.OPEN) {
       socket.send(response1.data.isValid.toString()); // send "true" or "false"
-       console.log("After sending message");
        
     } else {
       toast.error("Spectator mode");
@@ -210,7 +201,7 @@ const Board = ({ gameStarted , gameId, userId, socket}) => {
       {!ck && (
         <div className="win-overlay">
           <div className="winBox">
-            <div>{turn === "black" ? "WHITE WINS!" : "BLACK WINS!"}</div>
+            <div>{turn}" WINS"</div>
             <button className="replay-btn" onClick={() => window.location.href = '/start'}>
               Replay
             </button>
