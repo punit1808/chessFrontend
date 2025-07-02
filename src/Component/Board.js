@@ -86,7 +86,7 @@ const Board = ({ gameStarted , gameId, userId, socket, onClose}) => {
         }
       });
       if (!response.data || !response.data.board || response.data.board.length === 0) {
-        toast.error("Invalid gameId");
+        toast.error("Game Id doesn't exist");
         onClose();
         return;
       }
