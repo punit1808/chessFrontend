@@ -35,7 +35,7 @@ const pieceImages = {
   
 };
 
-const Board = ({ gameStarted , gameId, userId, socket, handleCloseBoard}) => {
+const Board = ({ gameStarted , gameId, userId, socket, onClose}) => {
   const [board, setBoard] = useState([]);
   const [isSet, setIsSet] = useState(false);
   const [turn, setTurn] = useState("white");
@@ -87,7 +87,7 @@ const Board = ({ gameStarted , gameId, userId, socket, handleCloseBoard}) => {
       });
       if (!response.data || !response.data.board || response.data.board.length === 0) {
         toast.error("Invalid gameId");
-        handleCloseBoard();
+        onClose();
         return;
       }
       setBoard(response.data.board);
