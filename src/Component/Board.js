@@ -87,7 +87,8 @@ const Board = ({ gameStarted , gameId, userId, socket}) => {
       });
       if (!response.data || !response.data.board || response.data.board.length === 0) {
         toast.error("Invalid gameId");
-        navigate('/start');
+        navigate('/start', { replace: true });
+        window.location.reload();
         return;
       }
       setBoard(response.data.board);
