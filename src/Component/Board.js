@@ -85,12 +85,13 @@ const Board = ({ gameStarted , gameId, userId, socket}) => {
           'Content-Type': 'application/json'
         }
       });
-      setBoard(response.data.board);
-      if (!response.data || !response.data.board || board.length === 0) {
+      if (!response.data || !response.data.board || response.data.board.length === 0) {
         toast.error("Invalid gameId");
         navigate('/start');
         return;
       }
+      setBoard(response.data.board);
+
       prevBoardRef.current = response.data.board;
         setIsSet(true);
         const responseTurn = await axios.get(`https://chessbackend-utrs.onrender.com/api/game/turn/${gameId}`,{
