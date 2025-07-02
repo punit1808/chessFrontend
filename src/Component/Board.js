@@ -42,6 +42,7 @@ const Board = ({ gameStarted , gameId, userId, socket}) => {
   const [flag,SetFlag] = useState(false);
   const[check,setCheck] = useState();
   const [ck,setCk] = useState(true);
+  const [winner,setWinner] = useState("");
   const token = localStorage.getItem('token');
   
 
@@ -129,6 +130,9 @@ const Board = ({ gameStarted , gameId, userId, socket}) => {
               setTurn(response.data.turn);
               setCheck(response.data.isSafe);
               setCk(!response.data.isWin.res);
+              if(response.data.isWin.res){
+                setWinner(response.data.isWin.pieceColor);
+              }
           });}catch(error){
           toast.error("Error in re-rendering");
         }
@@ -201,7 +205,7 @@ const Board = ({ gameStarted , gameId, userId, socket}) => {
       {!ck && (
         <div className="win-overlay">
           <div className="winBox">
-            <div>{turn}" WINS"</div>
+            <div>{winner} WINS</div>
             <button className="replay-btn" onClick={() => window.location.href = '/start'}>
               Replay
             </button>
