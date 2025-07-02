@@ -112,7 +112,6 @@ const Board = ({ gameStarted , gameId, userId, socket}) => {
   socket.onmessage = (event) => {
     // Expect "true" or "false" string
     if (event.data === "true") {
-      console.log("Inside");
 
       const handleDelay = async () => {
         await new Promise(resolve => setTimeout(resolve, 10));
@@ -184,6 +183,9 @@ const Board = ({ gameStarted , gameId, userId, socket}) => {
 
       setValid(response1.data.isValid);
       setCheck(response1.data.isSafe);
+      if(response1.data.isWin.res){
+                setWinner(response1.data.isWin.pieceColor);
+              }
       setCk(!response1.data.isWin.res);
       SetFlag(!flag);
 
