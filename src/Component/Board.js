@@ -15,6 +15,7 @@ import blackrook from "../Images/blackrook.svg";
 import whiteking from "../Images/whiteking.svg";
 import blackking from "../Images/blackking.svg";
 import './comp.css';
+import { wait } from "@testing-library/user-event/dist/utils";
 
 
 const NUM_CELLS = 8; // 8x8 chessboard
@@ -85,6 +86,7 @@ const Board = ({ gameStarted , gameId, userId, socket, onClose}) => {
           'Content-Type': 'application/json'
         }
       });
+      new Promise(resolve => setTimeout(resolve, 3000)); // Delay to ensure board is fetched after game start
       if (!response.data || !response.data.board || response.data.board.length === 0) {
         toast.error("Game Id doesn't exist");
         onClose();
