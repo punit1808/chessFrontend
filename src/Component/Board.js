@@ -89,6 +89,11 @@ const Board = ({ gameStarted , gameId, userId, socket, onClose}) => {
       setBoard(response.data.board);
       
       prevBoardRef.current = response.data.board;
+      if (!response.data || board === undefined || board === null) {
+        toast.error("Game Id doesn't exist");
+        onClose();
+        return;
+      }
       setIsSet(true);
       const responseTurn = await axios.get(`https://chessbackend-utrs.onrender.com/api/game/turn/${gameId}`,{
         headers: {
@@ -97,11 +102,6 @@ const Board = ({ gameStarted , gameId, userId, socket, onClose}) => {
         }
       });
       await new Promise(resolve => setTimeout(resolve, 6000)); // Delay to ensure board is fetched after game start
-      if (!response.data || !response.data.board) {
-        toast.error("Game Id doesn't exist");
-        onClose();
-        return;
-      }
       setTurn(responseTurn.data);
       } catch (error) {
         console.error("Error fetching board:", error);
