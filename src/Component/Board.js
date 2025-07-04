@@ -90,7 +90,7 @@ const Board = ({ gameStarted , gameId, userId, socket, onClose}) => {
       
       prevBoardRef.current = response.data.board;
       await new Promise(resolve => setTimeout(resolve, 6000)); // Delay to ensure board is fetched after game start
-      if (!response.data || board === undefined || board === null) {
+      if (board === undefined || board === null) {
         toast.error("Game Id doesn't exist");
         onClose();
         return;
