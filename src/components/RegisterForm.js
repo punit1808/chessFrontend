@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 import './styles.css';
 
 const RegisterForm = ({ onClose, onSwitchToRegister }) => {
@@ -38,6 +39,7 @@ const RegisterForm = ({ onClose, onSwitchToRegister }) => {
       });
 
       if (response.ok) {
+        toast.success('User registered');
         console.log('User Registered');
         onSwitchToRegister(); // Switch to login form
       } else if (response.status === 403) {
@@ -59,6 +61,7 @@ const RegisterForm = ({ onClose, onSwitchToRegister }) => {
 
   return (
     <div className='register-container'>
+      <ToastContainer />
       <div className="register-box">
         <h2>Register</h2>
         <div>
