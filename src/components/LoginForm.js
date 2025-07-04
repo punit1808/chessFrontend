@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './LoginForm.css';
 
-const LoginForm = ({ onClose, onSwitchToRegister, onSuccessLogin }) => {
+const LoginForm = ({ onClose, onSwitchToRegister }) => {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [errors, setErrors] = useState({ email: '', password: '' });
   const navigate = useNavigate();
@@ -34,7 +34,6 @@ const LoginForm = ({ onClose, onSwitchToRegister, onSuccessLogin }) => {
       const data = await response.json();
       localStorage.setItem('token', data.token);
       localStorage.setItem('username', data.fullName);
-      onSuccessLogin(); // Call success callback
       console.log('Login successful');
       navigate('/start');
     } else if (response.status === 403) {

@@ -44,9 +44,6 @@ const StartPage = () => {
             setShowLogin(false);    
             setShowRegister(true);
           }}
-          onSuccessLogin={() => {
-            toast.success('Login successful');
-          }}
         />
       )}
 
