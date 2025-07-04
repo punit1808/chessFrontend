@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './LoginForm.css';
-import { ToastContainer, toast } from 'react-toastify';
 
-const LoginForm = ({ onClose, onSwitchToRegister }) => {
+const LoginForm = ({ onClose, onSwitchToRegister, onSuccessLogin }) => {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [errors, setErrors] = useState({ email: '', password: '' });
   const navigate = useNavigate();
@@ -35,7 +34,7 @@ const LoginForm = ({ onClose, onSwitchToRegister }) => {
       const data = await response.json();
       localStorage.setItem('token', data.token);
       localStorage.setItem('username', data.fullName);
-      toast.success('Login success');
+      onSuccessLogin(); // Call success callback
       console.log('Login successful');
       navigate('/start');
     } else if (response.status === 403) {
@@ -54,7 +53,6 @@ const LoginForm = ({ onClose, onSwitchToRegister }) => {
 
   return (
     <div className="login-modal">
-      <ToastContainer />
       <div className="login-box">
         <h2>Login</h2>
         <input

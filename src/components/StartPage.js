@@ -3,6 +3,7 @@ import './StartPage.css';
 import { useNavigate } from 'react-router-dom';
 import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
+import { ToastContainer,toast } from 'react-toastify';
 
 const StartPage = () => {
   const [showLogin, setShowLogin] = useState(false);
@@ -16,6 +17,7 @@ const StartPage = () => {
 
   return (
     <div className={`landing-body ${showLogin || showRegister ? 'blur-background' : ''}`}>
+      <ToastContainer />
       <section className="hero-section">
         <div className="guest-button-wrapper">
           <button className="guest-button" onClick={handleGuestPlay}>Play as Guest</button>
@@ -42,6 +44,9 @@ const StartPage = () => {
             setShowLogin(false);    
             setShowRegister(true);
           }}
+          onSuccessLogin={() => {
+            toast.success('Login successful');
+          }}
         />
       )}
 
@@ -51,6 +56,9 @@ const StartPage = () => {
             setShowLogin(true);
             setShowRegister(false);
           }}
+        onSuccessRegister={()=>{
+          toast.success('Registration successful');
+        }}
         />
       )}
     </div>
