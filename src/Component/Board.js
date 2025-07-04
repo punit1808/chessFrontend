@@ -86,13 +86,13 @@ const Board = ({ gameStarted , gameId, userId, socket, onClose}) => {
           'Content-Type': 'application/json'
         }
       });
+      setBoard(response.data.board);
       await new Promise(resolve => setTimeout(resolve, 6000)); // Delay to ensure board is fetched after game start
       if (!response.data || !response.data.board || response.data.board.length === 0) {
         toast.error("Game Id doesn't exist");
         onClose();
         return;
       }
-      setBoard(response.data.board);
 
       prevBoardRef.current = response.data.board;
         setIsSet(true);
