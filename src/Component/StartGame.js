@@ -40,7 +40,7 @@ const StartGame = () => {
       });
       const generatedId = response.data.gameId || response.data;
       setGameId(generatedId);
-      if(generatedId === undefined || generatedId === null) {
+      if(generatedId == undefined || generatedId == null) {
         toast.error("Login Required");  
         navigate('/');
         return;
