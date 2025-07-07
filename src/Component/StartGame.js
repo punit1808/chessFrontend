@@ -13,6 +13,7 @@ const StartGame = () => {
   const [gameStarted, setGameStarted] = useState(false);
   const [socket, setSocket] = useState();
   const token = localStorage.getItem('token');
+  const username = localStorage.getItem('username');
   const [useExisting, setUseExisting] = useState(false);
 
 
@@ -20,7 +21,7 @@ const StartGame = () => {
     if(token==null || token == undefined || token === "undefined") {
       navigate('/');
     }
-    if(token==="eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJndWVzdEBnbWFpbC5jb20iLCJpYXQiOjE3NTE0NDAwNDAsImV4cCI6MTc1MTUyNjQ0MH0.gPN4YojWIQf4FYd0TzMcJ8kTwvh20ofDIbTK_MgLtAQ"){
+    if(username==null || username == undefined || username === "undefined") {
       toast.success("Guest Login")
     }
     else{
