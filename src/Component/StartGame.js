@@ -5,6 +5,7 @@ import Board from "./Board";
 import Navbar from "../components/NavBar";
 import './StartGame.css'; 
 import { useNavigate } from "react-router-dom";
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
 const StartGame = () => {
   const navigate = useNavigate();
@@ -31,7 +32,7 @@ const StartGame = () => {
 
   const createGameId = async () => {
     try {
-      const response = await axios.get(`https://chessbackend-utrs.onrender.com/api/game/create`, {
+      const response = await axios.get(`https://${BACKEND_URL}/api/game/create`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -59,7 +60,7 @@ const StartGame = () => {
     localStorage.setItem('gameId', gameId);
 
     try {
-      const ws = new WebSocket(`wss://chessbackend-utrs.onrender.com/wss/game/${gameId}/${user1}/${user1}`);
+      const ws = new WebSocket(`wss://${BACKEND_URL}/wss/game/${gameId}/${user1}/${user1}`);
       setSocket(ws);
       ws.onopen = () => {
         console.log(`Connected to game ${gameId} as player ${user1}`);

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import './styles.css';
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
 const RegisterForm = ({ onClose, onSwitchToRegister ,onSuccessRegister }) => {
   const navigate = useNavigate();
@@ -25,33 +27,37 @@ const RegisterForm = ({ onClose, onSwitchToRegister ,onSuccessRegister }) => {
     if (newErrors.name || newErrors.email || newErrors.password) return;
 
     try {
-      const response = await fetch('https://chessbackend-utrs.onrender.com/api/v1/auth/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          fullName: name,
-          email,
-          password
-        })
-      });
-
-      if (response.ok) {
-        onSuccessRegister(); // Call success callback
-        console.log('User Registered');
-        onSwitchToRegister(); // Switch to login form
-      } else if (response.status === 403) {
-        setErrors({ ...errors, email: 'Email already registered. Please log in.' });
-      } else {
-        const errText = await response.text();
-        console.error('Register failed:', errText);
-        setErrors({ ...errors, password: 'Registration failed. Please try again.' });
+  const response = await axios.post(
+    `https://${BACKEND_URL}/api/v1/auth/register`,
+    {
+      fullName: name,
+      email,
+      password
+    },
+    {
+      headers: {
+        'Content-Type': 'application/json'
       }
-    } catch (error) {
-      console.error('Network error:', error);
-      setErrors({ ...errors, password: 'Network error. Please check your connection.' });
     }
+  );
+
+  // Axios throws on non-2xx, so if we are here, it's successful
+  onSuccessRegister(); // Call success callback
+  console.log('User Registered');
+  onSwitchToRegister(); // Switch to login form
+
+} catch (error) {
+  if (error.response && error.response.status === 403) {
+    setErrors({ ...errors, email: 'Email already registered. Please log in.' });
+  } else if (error.response) {
+    console.error('Register failed:', error.response.data);
+    setErrors({ ...errors, password: 'Registration failed. Please try again.' });
+  } else {
+    console.error('Network error:', error.message);
+    setErrors({ ...errors, password: 'Network error. Please check your connection.' });
+  }
+}
+
   };
 
   const handleClose = () => {

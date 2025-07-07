@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './LoginForm.css';
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
 const LoginForm = ({ onClose, onSwitchToRegister }) => {
   const [formData, setFormData] = useState({ email: '', password: '' });
@@ -24,29 +25,38 @@ const LoginForm = ({ onClose, onSwitchToRegister }) => {
   if (newErrors.email || newErrors.password) return;
 
   try {
-    const response = await fetch('https://chessbackend-utrs.onrender.com/api/v1/auth/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password }),
-    });
-
-    if (response.ok) {
-      const data = await response.json();
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('username', data.fullName);
-      console.log('Login successful');
-      navigate('/start');
-    } else if (response.status === 403) {
-      setErrors({ ...errors, password: 'Invalid email or password' });
-    } else {
-      const errorText = await response.text();
-      console.error('Login failed:', errorText);
-      setErrors({ ...errors, password: 'Login failed. Please try again later.' });
+  const response = await axios.post(
+    `https://${BACKEND_URL}/api/v1/auth/login`,
+    {
+      email,
+      password,
+    },
+    {
+      headers: {
+        'Content-Type': 'application/json',
+      }
     }
-  } catch (error) {
-    console.error('Network error:', error);
+  );
+
+  // Successful response (status 2xx)
+  const data = response.data;
+  localStorage.setItem('token', data.token);
+  localStorage.setItem('username', data.fullName);
+  console.log('Login successful');
+  navigate('/start');
+
+} catch (error) {
+  if (error.response && error.response.status === 403) {
+    setErrors({ ...errors, password: 'Invalid email or password' });
+  } else if (error.response) {
+    console.error('Login failed:', error.response.data);
+    setErrors({ ...errors, password: 'Login failed. Please try again later.' });
+  } else {
+    console.error('Network error:', error.message);
     setErrors({ ...errors, password: 'Network error. Please check your connection.' });
   }
+}
+
 };
 
 

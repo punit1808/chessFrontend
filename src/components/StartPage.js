@@ -3,7 +3,11 @@ import './StartPage.css';
 import { useNavigate } from 'react-router-dom';
 import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
+import axios from 'axios';
 import { ToastContainer,toast } from 'react-toastify';
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+const guestEmail = process.env.REACT_APP_Guest_EMAIL;
+const guestPassword = process.env.REACT_APP_Guest_PASSWORD;
 
 const StartPage = () => {
   const [showLogin, setShowLogin] = useState(false);
@@ -12,26 +16,34 @@ const StartPage = () => {
 
   const handleGuestPlay = async () => {
 
-     try {
-    const response = await fetch('https://chessbackend-utrs.onrender.com/api/v1/auth/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email:"guest@gmail.com",password: "guest" }),
-    });
-     if (response.ok) {
-      const data = await response.json();
-      localStorage.setItem('token', data.token);
-      console.log('Login successful');
-      navigate('/start');
-    } else if (response.status === 403) {
-      console.error('Invalid email or password');
-    } else {
-      const errorText = await response.text();
-      console.error('Login failed:', errorText);
+    try {
+  const response = await axios.post(
+    `https://${BACKEND_URL}/api/v1/auth/login`,
+    {
+      email: guestEmail,
+      password: guestPassword
+    },
+    {
+      headers: { 'Content-Type': 'application/json' }
     }
-  } catch (error) {
-    console.error('Network error:', error);
+  );
+
+  // If the request succeeds (status 2xx), this block runs
+  const data = response.data;
+  localStorage.setItem('token', data.token);
+  console.log('Login successful');
+  navigate('/start');
+
+} catch (error) {
+  if (error.response && error.response.status === 403) {
+    console.error('Invalid email or password');
+  } else if (error.response) {
+    console.error('Login failed:', error.response.data);
+  } else {
+    console.error('Network error:', error.message);
   }
+}
+
   };
 
   return (

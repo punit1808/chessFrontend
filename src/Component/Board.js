@@ -15,6 +15,7 @@ import blackrook from "../Images/blackrook.svg";
 import whiteking from "../Images/whiteking.svg";
 import blackking from "../Images/blackking.svg";
 import './comp.css';
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
 
 const NUM_CELLS = 8; // 8x8 chessboard
@@ -79,7 +80,7 @@ const Board = ({ gameStarted , gameId, userId, socket, onClose}) => {
 
     const fetchBoard = async () => {
       try {
-        const response = await axios.get(`https://chessbackend-utrs.onrender.com/api/game/board/${gameId}`,{
+        const response = await axios.get(`https://${BACKEND_URL}/api/game/board/${gameId}`,{
         headers: {
           'Authorization': `Bearer ${token}`, 
           'Content-Type': 'application/json'
@@ -94,7 +95,7 @@ const Board = ({ gameStarted , gameId, userId, socket, onClose}) => {
 
       prevBoardRef.current = response.data.board;
         setIsSet(true);
-        const responseTurn = await axios.get(`https://chessbackend-utrs.onrender.com/api/game/turn/${gameId}`,{
+        const responseTurn = await axios.get(`https://${BACKEND_URL}/api/game/turn/${gameId}`,{
         headers: {
           'Authorization': `Bearer ${token}`, 
           'Content-Type': 'application/json'
@@ -125,7 +126,7 @@ const Board = ({ gameStarted , gameId, userId, socket, onClose}) => {
         await new Promise(resolve => setTimeout(resolve, 10));
 
         try{
-        axios.get(`https://chessbackend-utrs.onrender.com/api/game/rerender/${gameId}`,{
+        axios.get(`https://${BACKEND_URL}/api/game/rerender/${gameId}`,{
         headers: {
           'Authorization': `Bearer ${token}`, 
           'Content-Type': 'application/json'
@@ -181,7 +182,7 @@ const Board = ({ gameStarted , gameId, userId, socket, onClose}) => {
     try {
       // POST move to backend
       const response1 = await axios.get(
-        `https://chessbackend-utrs.onrender.com/api/game/move/${fromRow}/${fromCol}/${targetRow}/${targetCol}/${gameId}/${userId}`,{
+        `https://${BACKEND_URL}/api/game/move/${fromRow}/${fromCol}/${targetRow}/${targetCol}/${gameId}/${userId}`,{
         headers: {
           'Authorization': `Bearer ${token}`, 
           'Content-Type': 'application/json'
