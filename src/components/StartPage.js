@@ -10,9 +10,30 @@ const StartPage = () => {
   const [showRegister, setShowRegister] = useState(false);
   const navigate = useNavigate();
 
-  const handleGuestPlay = () => {
-    localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwdW5pdHlhZGF2MTgwOEBnbWFpbC5jb20iLCJpYXQiOjE3NTE2MTI1NjgsImV4cCI6MTc1MTY5ODk2OH0.HcFhw2h9LJsHepm1dkFROHaCATREv7f3s-zaDZEHJuQ');
-    navigate('/start'); 
+  const handleGuestPlay = async () => {
+
+     try {
+    const response = await fetch('https://chessbackend-utrs.onrender.com/api/v1/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email:"guest@gmail.com",password: "guest" }),
+    });
+     if (response.ok) {
+      const data = await response.json();
+      localStorage.setItem('token', data.token);
+      console.log('Login successful');
+      navigate('/start');
+    } else if (response.status === 403) {
+      setErrors({ ...errors, password: 'Invalid email or password' });
+    } else {
+      const errorText = await response.text();
+      console.error('Login failed:', errorText);
+      setErrors({ ...errors, password: 'Login failed. Please try again later.' });
+    }
+  } catch (error) {
+    console.error('Network error:', error);
+    setErrors({ ...error, password: 'Network error. Please check your connection.' });
+  }
   };
 
   return (
