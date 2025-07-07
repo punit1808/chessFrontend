@@ -24,15 +24,13 @@ const StartPage = () => {
       console.log('Login successful');
       navigate('/start');
     } else if (response.status === 403) {
-      setErrors({ ...errors, password: 'Invalid email or password' });
+      console.error('Invalid email or password');
     } else {
       const errorText = await response.text();
       console.error('Login failed:', errorText);
-      setErrors({ ...errors, password: 'Login failed. Please try again later.' });
     }
   } catch (error) {
     console.error('Network error:', error);
-    setErrors({ ...error, password: 'Network error. Please check your connection.' });
   }
   };
 
