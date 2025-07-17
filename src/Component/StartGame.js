@@ -42,8 +42,7 @@ const StartGame = () => {
       setGameId(generatedId);
       console.log("Game ID created:", generatedId);
       if(generatedId == undefined || generatedId == null || generatedId === "undefined" || generatedId === "") {
-        toast.error("Login Required");  
-        navigate('/');
+        toast.error("Error creating Game ID! retry");  
         return;
       }
       toast.success(`Game ID Created: ${generatedId}`);

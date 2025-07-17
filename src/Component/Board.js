@@ -86,7 +86,10 @@ const Board = ({ gameStarted , gameId, userId, socket, onClose}) => {
           'Content-Type': 'application/json'
         }
       });
-      if (!response.data || !response.data.board || response.data.board.length === 0) {
+      if(!response.data) {
+        console.error("Backend error");
+      }
+      if (!response.data.board) {
         toast.error("Game Id doesn't exist");
         onClose();
         return;
