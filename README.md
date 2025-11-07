@@ -1,70 +1,194 @@
-# Getting Started with Create React App
+# ChessMaster Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The ChessMaster Frontend is a real‑time multiplayer chess application built in **React**, featuring live WebSocket gameplay, JWT authentication, bot matches, and spectator mode.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## ✅ Features
 
-### `npm start`
+* User authentication (JWT with Bearer Token)
+* Join/Start game via Game ID
+* Real‑time WebSocket move streaming
+* vs Player / vs Bot play
+* Spectator mode
+* Move highlighting + smooth UI
+* API + WS integration w/ backend
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 🏗 Tech Stack
 
-### `npm test`
+* React
+* React Router
+* Bootstrap
+* WebSockets
+* JWT
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## 📁 Folder Structure
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+frontend/
+ ├─ public/
+ ├─ src/
+ │   ├─ components/
+ │   │   ├─ StartGame.js
+ │   │   └─ Board.js
+ │   ├─ utils/
+ │   ├─ api/
+ │   └─ App.js
+ ├─ package.json
+ └─ .env
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## ⚙️ Environment Variables
 
-### `npm run eject`
+Create `.env` file:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```
+REACT_APP_API_BASE_URL=http://localhost:8080
+REACT_APP_WS_URL=ws://localhost:8080/ws/game
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Example for production:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```
+REACT_APP_API_BASE_URL=https://your-backend-domain.com
+REACT_APP_WS_URL=wss://your-backend-domain.com/ws/game
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+---
 
-## Learn More
+## 🔧 Setup
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### 1️⃣ Clone Repo
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
+git clone <repo-url>
+cd frontend
+```
 
-### Code Splitting
+### 2️⃣ Install dependencies
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```
+npm install
+```
 
-### Analyzing the Bundle Size
+### 3️⃣ Add `.env`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```
+REACT_APP_API_BASE_URL=<backend-url>
+REACT_APP_WS_URL=<backend-ws-url>
+```
 
-### Making a Progressive Web App
+### 4️⃣ Start Project
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```
+npm start
+```
 
-### Advanced Configuration
+Runs at:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+```
+http://localhost:3000
+```
 
-### Deployment
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## 🔌 Connecting to Backend
 
-### `npm run build` fails to minify
+Frontend communicates with backend via:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+* **REST API** → `/api/*`
+* **WebSockets** → `/ws/game/{gameId}/{playerId}`
+
+All requests requiring authentication must include JWT Bearer Token.
+
+Example:
+
+```
+Authorization: Bearer <token>
+```
+
+---
+
+## ♟ Game Flow
+
+1. User logs in → JWT stored in memory/cookie
+2. Start/Join game
+3. WebSocket connects
+4. Moves sync across clients
+5. Optional: Bot responds via Stockfish
+6. Spectators receive same WS events
+
+---
+
+## 🔒 Authentication
+
+* Token stored in browser memory / local storage
+* Sent via `Authorization: Bearer <token>` for secured endpoints
+
+---
+
+## 🌐 Deployment
+
+### Build
+
+```
+npm run build
+```
+
+Produces static build folder:
+
+```
+build/
+```
+
+Deploy on:
+
+* Vercel
+* Netlify
+* Render
+* S3 + CloudFront
+* Nginx
+
+Be sure to set environment variables for prod.
+
+---
+
+## 🚦 WebSocket
+
+Example usage:
+
+```
+const ws = new WebSocket(`${REACT_APP_WS_URL}/${gameId}/${playerName}`);
+```
+
+Events broadcast:
+
+* Move updates
+* Player joins
+* Spectator joins
+* Bot moves
+
+---
+
+## 🎨 UI
+
+* React + Bootstrap based layout
+* Move highlighting
+* First Turn: White/Black selector
+
+---
+
+## 📌 Future Enhancements
+
+* Timer / time control
+* User profile & stats
+* Multi‑lobby / tournaments
+
+---
+

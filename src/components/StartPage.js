@@ -12,10 +12,11 @@ const guestPassword = process.env.REACT_APP_Guest_PASSWORD;
 const StartPage = () => {
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
+  const [guestLoggingIn, setGuestLoggingIn] = useState(false);
   const navigate = useNavigate();
 
   const handleGuestPlay = async () => {
-
+    setGuestLoggingIn(true);
     try {
   const response = await axios.post(
     `https://${BACKEND_URL}/api/v1/auth/login`,
@@ -31,10 +32,11 @@ const StartPage = () => {
   // If the request succeeds (status 2xx), this block runs
   const data = response.data;
   localStorage.setItem('token', data.token);
-  console.log('Login successful');
+  setGuestLoggingIn(false);
   navigate('/start');
 
 } catch (error) {
+  setGuestLoggingIn(false);
   if (error.response && error.response.status === 403) {
     console.error('Invalid email or password');
   } else if (error.response) {
@@ -51,7 +53,8 @@ const StartPage = () => {
       <ToastContainer />
       <section className="hero-section">
         <div className="guest-button-wrapper">
-          <button className="guest-button" onClick={handleGuestPlay}>Play as Guest</button>
+          {guestLoggingIn ? (<button className="guest-button" onClick={handleGuestPlay}>Taking you in ...</button>):
+          (<button className="guest-button" onClick={handleGuestPlay}>Play as Guest</button>)}
         </div>
         <h1>♟️ ChessMaster</h1>
         <p>Your ultimate online chess battleground.</p>

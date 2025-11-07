@@ -19,6 +19,9 @@
   width: 320px;
   text-align: center;
   animation: fadeIn 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .startgame-card h2 {
@@ -72,3 +75,49 @@
   font-size: 13px;
   margin-top: 8px;
 }
+
+
+.startgame-card h6 {
+  text-align: left;
+  font-size: 15px;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.startgame-select {
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  background-color: #fff;
+  cursor: pointer;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.startgame-select:focus {
+  border-color: #4caf50;
+  box-shadow: 0 0 3px rgba(76, 175, 80, 0.6);
+  outline: none;
+}
+
+.mode-row {
+  display: flex;
+  gap: 12px;
+  margin: 10px 0 16px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.mode-btn {
+  padding: 8px 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #fff;
+  cursor: pointer;
+}
+.mode-btn.active {
+  border-color: #22c55e;
+  box-shadow: 0 0 0 2px rgba(34,197,94,0.2);
+}
+

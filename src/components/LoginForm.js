@@ -7,6 +7,7 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const LoginForm = ({ onClose, onSwitchToRegister }) => {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [errors, setErrors] = useState({ email: '', password: '' });
+  const [loggingIn, setLoggingIn] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = e => {
@@ -24,6 +25,7 @@ const LoginForm = ({ onClose, onSwitchToRegister }) => {
   setErrors(newErrors);
 
   if (newErrors.email || newErrors.password) return;
+  setLoggingIn(true);
 
   try {
   const response = await axios.post(
@@ -44,9 +46,11 @@ const LoginForm = ({ onClose, onSwitchToRegister }) => {
   localStorage.setItem('token', data.token);
   localStorage.setItem('username', data.fullName);
   console.log('Login successful');
+  setLoggingIn(false);
   navigate('/start');
 
 } catch (error) {
+  setLoggingIn(false);
   if (error.response && error.response.status === 403) {
     setErrors({ ...errors, password: 'Invalid email or password' });
   } else if (error.response) {
@@ -83,7 +87,10 @@ const LoginForm = ({ onClose, onSwitchToRegister }) => {
         />
         {errors.password && <div className="error-text">{errors.password}</div>}
 
-        <button onClick={handleSubmit}>Login</button>
+        {loggingIn ? (<button onClick={handleSubmit}>Logging in ...</button>
+        ) : (<button onClick={handleSubmit}>Login</button>)}
+
+        
 
         <p>
           Don't have an account?{' '}

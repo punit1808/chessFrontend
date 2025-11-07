@@ -8,6 +8,7 @@ const RegisterForm = ({ onClose, onSwitchToRegister ,onSuccessRegister }) => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ name: '', email: '', password: '' });
   const [errors, setErrors] = useState({});
+  const [registering, setRegistering] = useState(false);
 
   const handleChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -25,7 +26,7 @@ const RegisterForm = ({ onClose, onSwitchToRegister ,onSuccessRegister }) => {
     setErrors(newErrors);
 
     if (newErrors.name || newErrors.email || newErrors.password) return;
-
+    setRegistering(true);
     try {
   const response = await axios.post(
     `https://${BACKEND_URL}/api/v1/auth/register`,
@@ -42,11 +43,13 @@ const RegisterForm = ({ onClose, onSwitchToRegister ,onSuccessRegister }) => {
   );
 
   // Axios throws on non-2xx, so if we are here, it's successful
+  setRegistering(false);
   onSuccessRegister(); // Call success callback
   console.log('User Registered');
   onSwitchToRegister(); // Switch to login form
 
 } catch (error) {
+  setRegistering(false);
   if (error.response && error.response.status === 403) {
     setErrors({ ...errors, email: 'Email already registered. Please log in.' });
   } else if (error.response) {
@@ -96,7 +99,8 @@ const RegisterForm = ({ onClose, onSwitchToRegister ,onSuccessRegister }) => {
           />
           {errors.password && <div className="error-text">{errors.password}</div>}
 
-          <button onClick={handleSubmit}>Register</button>
+          {registering ? (<button onClick={handleSubmit}>Registering ...</button>
+          ) : (<button onClick={handleSubmit}>Register</button>)}
         </div>
         <p>
           Already have an account?{' '}
