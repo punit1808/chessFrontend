@@ -1,11 +1,10 @@
-import React,{useState,useEffect} from 'react';
+import React,{useEffect} from 'react';
 // import 'bootstrap/dist/css/bootstrap.min.css'; 
 import './App.css';
-import { Router, Routes, Route, Link, useNavigate  } from 'react-router-dom';
+import { Routes,Link } from 'react-router-dom';
 import StartGame from './Component/StartGame';
 import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm';
-import axios from 'axios';
 import StartPage from './components/StartPage';
 import OAuthSuccess from './components/OAuthSuccess';
 

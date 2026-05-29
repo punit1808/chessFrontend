@@ -26,10 +26,10 @@ const StartGame = () => {
 
 
   useEffect(() => {
-    if(token==null || token == undefined || token === "undefined") {
+    if(token===null || token === undefined || token === "undefined") {
       navigate('/');
     }
-    if(username==null || username == undefined || username === "undefined") {
+    if(username===null || username === undefined || username === "undefined") {
       toast.success("Guest Login")
     }
     else{
@@ -49,7 +49,7 @@ const StartGame = () => {
       const generatedId = response.data.gameId || response.data;
       setGameId(generatedId);
       console.log("Game ID created:", generatedId);
-      if(generatedId == undefined || generatedId == null || generatedId === "undefined" || generatedId === "") {
+      if(generatedId === undefined || generatedId === null || generatedId === "undefined" || generatedId === "") {
         toast.error("Error creating Game ID! retry");  
         return;
       }
@@ -74,7 +74,7 @@ const StartGame = () => {
       const generatedId = response.data.gameId || response.data;
       setGameId(generatedId);
       console.log("Game ID created:", generatedId);
-      if(generatedId == undefined || generatedId == null || generatedId === "undefined" || generatedId === "") {
+      if(generatedId === undefined || generatedId === null || generatedId === "undefined" || generatedId === "") {
         toast.error("Failed to setup ... try again");  
         return;
       }

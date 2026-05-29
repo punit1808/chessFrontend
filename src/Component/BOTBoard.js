@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";  
 import whitepawn from "../Images/whitepawn.svg";
 import blackpawn from "../Images/blackpawn.svg";
@@ -38,15 +37,12 @@ const pieceImages = {
 
 const BOTBoard = ({ gameStarted , gameId, userId, socket, onClose}) => {
   const [board, setBoard] = useState([]);
-  const [isSet, setIsSet] = useState(false);
   const [turn, setTurn] = useState("white");
-  const [valid,setValid] = useState(false);
   const [flag,SetFlag] = useState(false);
   const[check,setCheck] = useState();
   const [ck,setCk] = useState(true);
   const [winner,setWinner] = useState("");
   const token = localStorage.getItem('token');
-  const navigate = useNavigate();
   
 
 
