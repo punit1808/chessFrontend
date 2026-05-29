@@ -7,6 +7,7 @@ import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm';
 import axios from 'axios';
 import StartPage from './components/StartPage';
+import OAuthSuccess from './components/OAuthSuccess';
 
 const App=()=> {
 
@@ -26,6 +27,7 @@ const App=()=> {
           <Route path="/Start" element={<StartGame/>} />
           <Route path="/login" element={<LoginForm/>} />
           <Route path="/register" element={<RegisterForm/>} />
+           <Route path="/oauth-success" element={<OAuthSuccess />} />
           
         </Routes>
       </div>

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './LoginForm.css';
+import { FcGoogle } from "react-icons/fc";
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
 const LoginForm = ({ onClose, onSwitchToRegister }) => {
@@ -9,6 +10,9 @@ const LoginForm = ({ onClose, onSwitchToRegister }) => {
   const [errors, setErrors] = useState({ email: '', password: '' });
   const [loggingIn, setLoggingIn] = useState(false);
   const navigate = useNavigate();
+  const handleGoogleLogin = () => {
+    window.location.href = process.env.REACT_APP_GOOGLE_AUTH_URL;
+  };
 
   const handleChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -29,7 +33,7 @@ const LoginForm = ({ onClose, onSwitchToRegister }) => {
 
   try {
   const response = await axios.post(
-    `https://${BACKEND_URL}/api/v1/auth/login`,
+    `https://${BACKEND_URL}/auth/login`,
     {
       email,
       password,
@@ -87,8 +91,34 @@ const LoginForm = ({ onClose, onSwitchToRegister }) => {
         />
         {errors.password && <div className="error-text">{errors.password}</div>}
 
-        {loggingIn ? (<button onClick={handleSubmit}>Logging in ...</button>
-        ) : (<button onClick={handleSubmit}>Login</button>)}
+        {loggingIn ? (
+        <button onClick={handleSubmit}>
+              Logging in ...
+            </button>
+          ) : (
+            <button onClick={handleSubmit}>
+              Login
+            </button>
+          )}
+
+          <div
+            style={{
+              margin: "15px 0",
+              textAlign: "center",
+              color: "#888"
+            }}
+          >
+            OR
+          </div>
+
+      <button
+        type="button"
+        className="google-btn"
+        onClick={handleGoogleLogin}
+      >
+        <FcGoogle size={22} />
+        <span>Continue with Google</span>
+      </button>
 
         
 
