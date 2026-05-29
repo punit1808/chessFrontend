@@ -37,7 +37,9 @@ const pieceImages = {
 
 const BOTBoard = ({ gameStarted , gameId, userId, socket, onClose}) => {
   const [board, setBoard] = useState([]);
+  const [isSet, setIsSet] = useState(false);
   const [turn, setTurn] = useState("white");
+  const [valid,setValid] = useState(false);
   const [flag,SetFlag] = useState(false);
   const[check,setCheck] = useState();
   const [ck,setCk] = useState(true);

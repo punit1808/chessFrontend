@@ -1,7 +1,7 @@
 import React,{useEffect} from 'react';
 // import 'bootstrap/dist/css/bootstrap.min.css'; 
 import './App.css';
-import { Routes,Link } from 'react-router-dom';
+import { Routes,Route } from 'react-router-dom';
 import StartGame from './Component/StartGame';
 import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm';
