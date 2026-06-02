@@ -19,7 +19,7 @@ const StartPage = () => {
     setGuestLoggingIn(true);
     try {
   const response = await axios.post(
-    `https://${BACKEND_URL}/api/v1/auth/login`,
+    `https://${BACKEND_URL}/auth/login`,
     {
       email: guestEmail,
       password: guestPassword
