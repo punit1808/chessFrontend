@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";  
 import whitepawn from "../Images/whitepawn.svg";
 import blackpawn from "../Images/blackpawn.svg";
@@ -46,7 +45,6 @@ const Board = ({ gameStarted , gameId, userId, socket, onClose}) => {
   const [ck,setCk] = useState(true);
   const [winner,setWinner] = useState("");
   const token = localStorage.getItem('token');
-  const navigate = useNavigate();
   
 
 
@@ -80,7 +78,7 @@ const Board = ({ gameStarted , gameId, userId, socket, onClose}) => {
 
     const fetchBoard = async () => {
       try {
-        const response = await axios.get(`https://${BACKEND_URL}/api/game/board/${gameId}`,{
+        const response = await axios.get(`https://${BACKEND_URL}/chess/api/game/board/${gameId}`,{
         headers: {
           'Authorization': `Bearer ${token}`, 
           'Content-Type': 'application/json'
@@ -98,7 +96,7 @@ const Board = ({ gameStarted , gameId, userId, socket, onClose}) => {
 
       prevBoardRef.current = response.data.board;
         setIsSet(true);
-        const responseTurn = await axios.get(`https://${BACKEND_URL}/api/game/turn/${gameId}`,{
+        const responseTurn = await axios.get(`https://${BACKEND_URL}/chess/api/game/turn/${gameId}`,{
         headers: {
           'Authorization': `Bearer ${token}`, 
           'Content-Type': 'application/json'
@@ -129,7 +127,7 @@ const Board = ({ gameStarted , gameId, userId, socket, onClose}) => {
         await new Promise(resolve => setTimeout(resolve, 10));
 
         try{
-        axios.get(`https://${BACKEND_URL}/api/game/rerender/${gameId}`,{
+        axios.get(`https://${BACKEND_URL}/chess/api/game/rerender/${gameId}`,{
         headers: {
           'Authorization': `Bearer ${token}`, 
           'Content-Type': 'application/json'
@@ -185,7 +183,7 @@ const Board = ({ gameStarted , gameId, userId, socket, onClose}) => {
     try {
       // POST move to backend
       const response1 = await axios.get(
-        `https://${BACKEND_URL}/api/game/move/${fromRow}/${fromCol}/${targetRow}/${targetCol}/${gameId}/${userId}`,{
+        `https://${BACKEND_URL}/chess/api/game/move/${fromRow}/${fromCol}/${targetRow}/${targetCol}/${gameId}/${userId}`,{
         headers: {
           'Authorization': `Bearer ${token}`, 
           'Content-Type': 'application/json'

@@ -2,10 +2,15 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './styles.css';
+import { FcGoogle } from "react-icons/fc";
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
 const RegisterForm = ({ onClose, onSwitchToRegister ,onSuccessRegister }) => {
   const navigate = useNavigate();
+  const handleGoogleLogin = () => {
+    window.location.href = process.env.REACT_APP_GOOGLE_AUTH_URL;
+  };
+
   const [formData, setFormData] = useState({ name: '', email: '', password: '' });
   const [errors, setErrors] = useState({});
   const [registering, setRegistering] = useState(false);
@@ -29,7 +34,7 @@ const RegisterForm = ({ onClose, onSwitchToRegister ,onSuccessRegister }) => {
     setRegistering(true);
     try {
   const response = await axios.post(
-    `https://${BACKEND_URL}/api/v1/auth/register`,
+    `${BACKEND_URL}/auth/register`,
     {
       fullName: name,
       email,
@@ -98,10 +103,35 @@ const RegisterForm = ({ onClose, onSwitchToRegister ,onSuccessRegister }) => {
             onChange={handleChange}
           />
           {errors.password && <div className="error-text">{errors.password}</div>}
-
-          {registering ? (<button onClick={handleSubmit}>Registering ...</button>
-          ) : (<button onClick={handleSubmit}>Register</button>)}
         </div>
+        {registering ? (
+        <button onClick={handleSubmit}>
+              Registering ...
+            </button>
+          ) : (
+            <button onClick={handleSubmit}>
+              Register
+            </button>
+          )}
+
+          <div
+            style={{
+              margin: "15px 0",
+              textAlign: "center",
+              color: "#888"
+            }}
+          >
+            OR
+          </div>
+
+          <button
+            type="button"
+            className="google-btn"
+            onClick={handleGoogleLogin}
+          >
+            <FcGoogle size={22} />
+            <span>Continue with Google</span>
+          </button>
         <p>
           Already have an account?{' '}
           <span

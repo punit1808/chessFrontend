@@ -102,7 +102,7 @@ http://localhost:3000
 
 Frontend communicates with backend via:
 
-* **REST API** → `/api/*`
+* **REST API** → `/chess/api/*`
 * **WebSockets** → `/ws/game/{gameId}/{playerId}`
 
 All requests requiring authentication must include JWT Bearer Token.

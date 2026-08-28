@@ -26,10 +26,10 @@ const StartGame = () => {
 
 
   useEffect(() => {
-    if(token==null || token == undefined || token === "undefined") {
+    if(token===null || token === undefined || token === "undefined") {
       navigate('/');
     }
-    if(username==null || username == undefined || username === "undefined") {
+    if(username===null || username === undefined || username === "undefined") {
       toast.success("Guest Login")
     }
     else{
@@ -40,7 +40,7 @@ const StartGame = () => {
   const createGameId = async () => {
     setGameIdCreating(true)
     try {
-      const response = await axios.get(`https://${BACKEND_URL}/api/game/create/${fTurn}`, {
+      const response = await axios.get(`https://${BACKEND_URL}/chess/api/game/create/${fTurn}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -49,7 +49,7 @@ const StartGame = () => {
       const generatedId = response.data.gameId || response.data;
       setGameId(generatedId);
       console.log("Game ID created:", generatedId);
-      if(generatedId == undefined || generatedId == null || generatedId === "undefined" || generatedId === "") {
+      if(generatedId === undefined || generatedId === null || generatedId === "undefined" || generatedId === "") {
         toast.error("Error creating Game ID! retry");  
         return;
       }
@@ -65,7 +65,7 @@ const StartGame = () => {
   const createBotGameId = async () => {
     setGameIdCreating(true);
      try {
-      const response = await axios.get(`https://${BACKEND_URL}/api/game/bot/create/${fTurn}/${dLevel}`, {
+      const response = await axios.get(`https://${BACKEND_URL}/chess/api/game/bot/create/${fTurn}/${dLevel}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -74,7 +74,7 @@ const StartGame = () => {
       const generatedId = response.data.gameId || response.data;
       setGameId(generatedId);
       console.log("Game ID created:", generatedId);
-      if(generatedId == undefined || generatedId == null || generatedId === "undefined" || generatedId === "") {
+      if(generatedId === undefined || generatedId === null || generatedId === "undefined" || generatedId === "") {
         toast.error("Failed to setup ... try again");  
         return;
       }
