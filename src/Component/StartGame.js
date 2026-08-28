@@ -40,7 +40,7 @@ const StartGame = () => {
   const createGameId = async () => {
     setGameIdCreating(true)
     try {
-      const response = await axios.get(`https://${BACKEND_URL}/api/game/create/${fTurn}`, {
+      const response = await axios.get(`https://${BACKEND_URL}/chess/api/game/create/${fTurn}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -65,7 +65,7 @@ const StartGame = () => {
   const createBotGameId = async () => {
     setGameIdCreating(true);
      try {
-      const response = await axios.get(`https://${BACKEND_URL}/api/game/bot/create/${fTurn}/${dLevel}`, {
+      const response = await axios.get(`https://${BACKEND_URL}/chess/api/game/bot/create/${fTurn}/${dLevel}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'

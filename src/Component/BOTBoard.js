@@ -78,7 +78,7 @@ const BOTBoard = ({ gameStarted , gameId, userId, socket, onClose}) => {
 
     const fetchBoard = async () => {
       try {
-        const response = await axios.get(`https://${BACKEND_URL}/api/game/bot/board/${gameId}`,{
+        const response = await axios.get(`https://${BACKEND_URL}/chess/api/game/bot/board/${gameId}`,{
         headers: {
           'Authorization': `Bearer ${token}`, 
           'Content-Type': 'application/json'
@@ -96,7 +96,7 @@ const BOTBoard = ({ gameStarted , gameId, userId, socket, onClose}) => {
 
       prevBoardRef.current = response.data.board;
         setIsSet(true);
-        const responseTurn = await axios.get(`https://${BACKEND_URL}/api/game/bot/turn/${gameId}`,{
+        const responseTurn = await axios.get(`https://${BACKEND_URL}/chess/api/game/bot/turn/${gameId}`,{
         headers: {
           'Authorization': `Bearer ${token}`, 
           'Content-Type': 'application/json'
@@ -127,7 +127,7 @@ const BOTBoard = ({ gameStarted , gameId, userId, socket, onClose}) => {
         await new Promise(resolve => setTimeout(resolve, 10));
 
         try{
-        axios.get(`https://${BACKEND_URL}/api/game/bot/rerender/${gameId}`,{
+        axios.get(`https://${BACKEND_URL}/chess/api/game/bot/rerender/${gameId}`,{
         headers: {
           'Authorization': `Bearer ${token}`, 
           'Content-Type': 'application/json'
@@ -184,7 +184,7 @@ const BOTBoard = ({ gameStarted , gameId, userId, socket, onClose}) => {
       // POST move to backend
 
       const response1 = await axios.get(
-        `https://${BACKEND_URL}/api/game/bot/move/${fromRow}/${fromCol}/${targetRow}/${targetCol}/${gameId}/${userId}`,{
+        `https://${BACKEND_URL}/chess/api/game/bot/move/${fromRow}/${fromCol}/${targetRow}/${targetCol}/${gameId}/${userId}`,{
         headers: {
           'Authorization': `Bearer ${token}`, 
           'Content-Type': 'application/json'

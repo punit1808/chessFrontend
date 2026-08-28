@@ -33,7 +33,7 @@ const LoginForm = ({ onClose, onSwitchToRegister }) => {
 
   try {
   const response = await axios.post(
-    `https://${BACKEND_URL}/auth/login`,
+    `${BACKEND_URL}/auth/login`,
     {
       email,
       password,

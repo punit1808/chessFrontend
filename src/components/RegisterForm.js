@@ -34,7 +34,7 @@ const RegisterForm = ({ onClose, onSwitchToRegister ,onSuccessRegister }) => {
     setRegistering(true);
     try {
   const response = await axios.post(
-    `https://${BACKEND_URL}/auth/register`,
+    `${BACKEND_URL}/auth/register`,
     {
       fullName: name,
       email,
