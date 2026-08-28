@@ -20,7 +20,7 @@ function OAuthSuccess() {
         localStorage.setItem("token", token);
 
         if (fullName) {
-            localStorage.setItem("fullName", fullName);
+            localStorage.setItem("username", fullName);
         }
 
         navigate("/start");
